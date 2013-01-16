@@ -36,11 +36,6 @@ class dashboard::passenger (
     ensure => absent,
   }
 
-  file { 'dashboard_config':
-    ensure => absent,
-    path   => $dashboard_config,
-  }
-
   apache::vhost { $dashboard_site:
     port     => $dashboard_port,
     priority => '50',
