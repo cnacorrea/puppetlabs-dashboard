@@ -25,7 +25,8 @@ class dashboard::passenger (
   $dashboard_site,
   $dashboard_port,
   $dashboard_config,
-  $dashboard_root
+  $dashboard_root,
+  $ssldir
 ) inherits dashboard {
 
   require ::passenger

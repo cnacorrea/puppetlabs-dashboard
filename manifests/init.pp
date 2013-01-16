@@ -52,6 +52,9 @@
 #   [*rack_version*]
 #     - The version of the rack gem to install
 #
+#   [*ssldir*]
+#     - Path to the Puppet SSL dir (for the secure virtualhost)
+#
 # Actions:
 #
 # Requires:
@@ -93,7 +96,8 @@ class dashboard (
   $ruby_mysql_package       = $dashboard::params::ruby_mysql_package,
   $dashboard_config         = $dashboard::params::dashboard_config,
   $dashboard_root           = $dashboard::params::dashboard_root,
-  $rack_version             = $dashboard::params::rack_version
+  $rack_version             = $dashboard::params::rack_version,
+  $ssldir                   = $dashboard::params::ssldir
 ) inherits dashboard::params {
 
   require mysql
