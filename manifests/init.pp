@@ -109,6 +109,16 @@ class dashboard (
     package_name     => $ruby_mysql_package,
   }
 
+  file { 'dashboard_config':
+    ensure  => present,
+    path    => $dashboard_config,
+    content => template("dashboard/config.${::osfamily}.erb"),
+    owner   => '0',
+    group   => '0',
+    mode    => '0644',
+    require => Package[$dashboard_package],
+  }
+
   if $passenger {
     class { 'dashboard::passenger':
       dashboard_site   => $dashboard_site,
@@ -117,16 +127,6 @@ class dashboard (
       dashboard_root   => $dashboard_root,
     }
   } else {
-    file { 'dashboard_config':
-      ensure  => present,
-      path    => $dashboard_config,
-      content => template("dashboard/config.${::osfamily}.erb"),
-      owner   => '0',
-      group   => '0',
-      mode    => '0644',
-      require => Package[$dashboard_package],
-    }
-
     service { $dashboard_service:
       ensure     => running,
       enable     => true,
