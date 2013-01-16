@@ -16,3 +16,24 @@ Listen <%= dashboard_port %>
   ServerSignature On
 </VirtualHost>
 
+Listen 127.0.0.1:8083
+
+<VirtualHost 127.0.0.1:8083>
+  RackAutoDetect On
+  RackBaseURI /
+  SetEnv RAILS_ENV production
+  ServerName <%= name %>
+  DocumentRoot <%= docroot %>
+  <Directory <%= docroot %>>
+    Options None
+    AllowOverride None
+    Order allow,deny
+    allow from all
+  </Directory>
+  ErrorLog /var/log/<%= scope.lookupvar("apache::params::apache_name") %>/<%= name %>_upload_error.log
+  LogLevel warn
+  CustomLog /var/log/<%= scope.lookupvar("apache::params::apache_name") %>/<%= name %>_upload_access.log combined
+  ServerSignature On
+</VirtualHost>
+
+
