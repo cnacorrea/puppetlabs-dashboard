@@ -125,6 +125,7 @@ class dashboard (
       dashboard_port   => $dashboard_port,
       dashboard_config => $dashboard_config,
       dashboard_root   => $dashboard_root,
+      ssldir           => $ssldir,
     }
   } else {
     service { $dashboard_service:
