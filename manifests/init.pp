@@ -162,6 +162,18 @@ class dashboard (
 
   case $::selinux_current_mode {
     /ˆ(permissive|enforcing)$/: {
+      exec { 'semanage_8082':
+        path    => '/sbin:/usr/sbin/:/usr/local/sbin/:/bin:/usr/bin/:/usr/local/bin/',
+        command => 'semanage port -a -t http_port_t -p tcp 8082',
+        unless => 'semanage port -l | grep http_port_t | grep 8082',
+      }
+  
+      exec { 'semanage_8083':
+        path    => '/sbin:/usr/sbin/:/usr/local/sbin/:/bin:/usr/bin/:/usr/local/bin/',
+        command => 'semanage port -a -t http_port_t -p tcp 8083',
+        unless => 'semanage port -l | grep http_port_t | grep 8083',
+      }
+    
       file { [ "${dashboard::params::dashboard_root}/public", "${dashboard::params::dashboard_root}/tmp", "${dashboard::params::dashboard_root}/log", "${dashboard::params::dashboard_root}/spool" ]:
         ensure       => directory,
         recurse      => true,   
