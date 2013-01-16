@@ -162,7 +162,7 @@ class dashboard (
   }
 
   case $::selinux_current_mode {
-    enforcing: {
+    /ˆ(permissive|enforcing)$/: {
       exec { 'semanage_8082':
         path    => '/sbin:/usr/sbin/:/usr/local/sbin/:/bin:/usr/bin/:/usr/local/bin/',
         command => 'semanage port -a -t http_port_t -p tcp 8082',
