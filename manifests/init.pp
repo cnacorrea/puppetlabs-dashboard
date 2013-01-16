@@ -156,7 +156,7 @@ class dashboard (
     require => Package[$dashboard_package],
   }
 
-  case $::selinux_current_mode: {
+  case $::selinux_current_mode {
     /ˆ(permissive|enforcing)$/: {
       file { [ "${dashboard::params::dashboard_root}/public", "${dashboard::params::dashboard_root}/tmp", "${dashboard::params::dashboard_root}/log", "${dashboard::params::dashboard_root}/spool" ]:
         ensure       => directory,
