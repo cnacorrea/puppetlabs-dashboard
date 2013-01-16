@@ -202,6 +202,17 @@ class dashboard (
     group   => '0',
     mode    => '0644',
   }
+  
+  exec { 'config.ru':
+    command => 'cp ${dashboard::params::dashboard_root}/vendor/rails/railties/dispatches/config.ru ${dashboard::params::dashboard_root}" ]:
+    creates => '${dashboard::params::dashboard_root}/config.ru',
+  }
+  
+  file { '${dashboard::params::dashboard_root}/config.ru':
+    ensure => file,
+    mode   => '0644',
+    require => Exec['config.ru'],
+  }
 
   exec { 'db-migrate':
     command => 'rake RAILS_ENV=production db:migrate',
