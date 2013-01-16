@@ -220,7 +220,8 @@ class dashboard (
   }
   
   exec { 'config.ru':
-    command => 'cp ${dashboard::params::dashboard_root}/vendor/rails/railties/dispatches/config.ru ${dashboard::params::dashboard_root}" ]:
+    path    => '/bin:/usr/bin/:/usr/local/bin/',
+    command => 'cp ${dashboard::params::dashboard_root}/vendor/rails/railties/dispatches/config.ru ${dashboard::params::dashboard_root}',
     creates => '${dashboard::params::dashboard_root}/config.ru',
   }
   
